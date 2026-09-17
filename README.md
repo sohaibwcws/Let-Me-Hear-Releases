@@ -26,12 +26,19 @@ Requires macOS 14 or newer on Apple silicon.
 Step 6 is the one people miss. The app can be cleaning perfectly, but if your call app is
 still pointed at the built in microphone then nobody hears a difference.
 
-## First launch warning
+## Signed and notarized
 
-The app is signed with a Developer ID certificate and runs under the hardened runtime.
-Until it is notarized, macOS quarantines the downloaded copy and Gatekeeper blocks the
-first launch. Right click the app and choose **Open**, then confirm. You only need to do
-this once.
+The app is signed with a Developer ID certificate, runs under the hardened runtime, and is
+notarized by Apple. The ticket is stapled to both the disk image and the app inside it, so
+it validates offline. There is no Gatekeeper warning and no right click workaround needed.
+
+Check it yourself after installing:
+
+```sh
+spctl -a -t exec -vv "/Applications/Let Me Hear.app"
+```
+
+That should report `accepted` and `source=Notarized Developer ID`.
 
 ## Verifying the download
 
